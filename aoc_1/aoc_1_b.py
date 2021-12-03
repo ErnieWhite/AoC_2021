@@ -3,7 +3,7 @@ def main():
         lines = file.readlines()
 
     previous_average_depth = sum(int(lines[x].strip()) for x in range(3))
-    increase = 0;
+    increase = 0
     for index in range(1, len(lines)-2):
         average_depth = sum(int(lines[x].strip()) for x in range(index, index+3))
         data = list(lines[x] for x in range(index, index+3))
