@@ -1,6 +1,9 @@
 # Specific files
 input.txt
 
+# ide files
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
