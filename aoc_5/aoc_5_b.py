@@ -42,14 +42,13 @@ def main():
         while data := data_file.readline():
             s = int(data.split(' -> ')[0].split(',')[0]), int(data.split(' -> ')[0].split(',')[1])
             e = int(data.split(' -> ')[1].split(',')[0]), int(data.split(' -> ')[1].split(',')[1])
-            if s[0] == e[0] or s[1] == e[1]:
-                l = tuple(line(s, e))
-                for p in l:
-                    min_x = p[0] if p[0] < min_x else min_x
-                    max_x = p[0] if p[0] > max_x else max_x
-                    min_y = p[1] if p[1] < min_y else min_y
-                    max_y = p[1] if p[1] > max_y else max_y
-                    point_counts[(p[0], p[1])] = point_counts.get((p[0], p[1]), 0) + 1
+            l = tuple(line(s, e))
+            for p in l:
+                min_x = p[0] if p[0] < min_x else min_x
+                max_x = p[0] if p[0] > max_x else max_x
+                min_y = p[1] if p[1] < min_y else min_y
+                max_y = p[1] if p[1] > max_y else max_y
+                point_counts[(p[0], p[1])] = point_counts.get((p[0], p[1]), 0) + 1
         for x in range(min_x, max_x+1):
             for y in range(min_y, max_y + 1):
                 count = point_counts.get((y, x), 0)
