@@ -1,3 +1,6 @@
+import time
+
+
 def line(s, e):
     """ returns the points of a line
     y = mx + b is the equation for a line
@@ -32,11 +35,8 @@ def line(s, e):
 
 
 def main():
+    tic = time.perf_counter_ns()
     point_counts = {}
-    min_x = 0
-    max_x = 0
-    min_y = 0
-    max_y = 0
     p: tuple
     with open('input.txt') as data_file:
         while data := data_file.readline():
@@ -44,22 +44,27 @@ def main():
             e = int(data.split(' -> ')[1].split(',')[0]), int(data.split(' -> ')[1].split(',')[1])
             l = tuple(line(s, e))
             for p in l:
-                min_x = p[0] if p[0] < min_x else min_x
-                max_x = p[0] if p[0] > max_x else max_x
-                min_y = p[1] if p[1] < min_y else min_y
-                max_y = p[1] if p[1] > max_y else max_y
                 point_counts[(p[0], p[1])] = point_counts.get((p[0], p[1]), 0) + 1
-        for x in range(min_x, max_x+1):
-            for y in range(min_y, max_y + 1):
-                count = point_counts.get((y, x), 0)
-                print(count if count > 0 else '.', end='')
-            print()
-        danger_areas = 0
-        for v in point_counts.values():
-            if v > 1:
-                danger_areas += 1
+        danger_areas = sum(x for x in point_counts.values() if x > 1)
         print(danger_areas)
+    toc = time.perf_counter_ns()
+    print((toc-tic))
 
 
 if __name__ == '__main__':
     main()
+
+# tic = time.perf_counter_ns()
+# c = {}
+# with open("input.txt") as f:
+#     for x in f.readlines():
+#         (p1x, p1y), (p2x, p2y) = [[*map(int, y.split(","))] for y in x.split(" -> ")]
+#         for i in range(max(abs(xd := p2x - p1x), abs(yd := p2y - p1y))+1):
+#             b = (p1x + (xd != 0) * i - (xd < 0) * i * 2, p1y + (yd != 0) * i - (yd < 0) * i * 2)
+#             if b not in c:
+#                 c[b] = 1
+#             else:
+#                 c[b] += 1
+# print(sum(x > 1 for x in c.values()))
+# toc = time.perf_counter_ns()
+# print((toc-tic))
